@@ -1,24 +1,98 @@
-# Counting Paths in a Directed Graph Assembly Script
+# Proiect-ASC
 
-This script, written in x86 assembly language, calculates the number of paths of length 'k' between two nodes in a directed graph. It utilizes matrix multiplication to efficiently perform the calculation.
+## Overview
 
-## Description
+The project is written in AT&T x86 assembly language and solves a classic programming problem. A directed graph is given. To display:
+1) The adjacency matrix
+2) The number of paths of length k from node i to node j
 
-The script begins by reading the input values, including the length of paths ('lungime'), source node ('sursa'), and destination node ('destinatie'). It then iteratively multiplies the adjacency matrix 'matrix' with itself 'lungime' number of times using the 'matrix_mult' function.
+To be able to solve this problem, it is necessary to raise the respective matrix to the power k, and the element on position [i][j] will have the answer to the problem.
 
-The 'matrix_mult' function is responsible for multiplying two matrices, which in this case represents the graph's adjacency matrix. The resulting matrix is stored in 'matrixrezult' and represents the number of paths of length 'k' between each pair of nodes. The script repeats this multiplication process 'lungime' times, gradually increasing the length of paths.
+To be able to run the code you will need 2 files:
 
-Finally, the script outputs the number of paths between the source and destination nodes for each specified length.
+1) assmebly.s ( the file that contains the code above )
+2) data ( a text file that contains the input )
 
-Please note that this script is written in x86 assembly language and requires an appropriate assembler and hardware platform to run. It is designed specifically for calculating path counts in directed graphs and can be used as a tool for graph analysis and related algorithms.
+To execute the code you will have to type in terminal the following 2 commands:
 
-## Usage
+```sh-session
+gcc -m32 assembly.s -o objfile -no-pie
+```
+```
+./objfile < data
+```
+Note: To make the 32-bit version work, considering that the operating system is 64-bit, you will have to install an additional library with the following command:
+```
+sudo apt-get install g++-multilib
+```
+## First Exercise
+### Input:
+```
+1   // 1 means it will display the matrix, 2 means the algorithm will display the number of paths
 
-To use the script, assemble it using an appropriate x86 assembler and run it on a compatible hardware platform. The script prompts for input values including 'lungime', 'sursa', and 'destinatie', allowing you to specify the desired length of paths and the source and destination nodes. The script then performs the path count calculation and displays the results.
+4   // this is the number of nodes
 
-## Requirements
+2   // this means that node 0 will have 2 connections (1,2)
 
-- x86 assembler
-- Compatible hardware platform
+2   // this means that node 1 will have 2 connections (2,3)
 
+1   // this means that node 2 will have 1 connection (3)
 
+0   // this means that node 3 will have 0 connections 
+
+1   // first connection of node 0
+
+2   // second connesction of node 0
+
+2   // first connection of node 1
+
+3   // second connection of node 1
+
+3   // the only connection of node 2
+
+```
+### Output:
+```
+0 1 1 0
+0 0 1 1
+0 0 0 1
+0 0 0 0
+```
+
+## Second Exercise
+### Input:
+
+```
+2   // 1 means it will display the matrix, 2 means the algorithm will display the number of paths
+
+4   // this is the number of nodes
+
+2   // this means that node 0 will have 2 connections (1,2)
+
+2   // this means that node 1 will have 2 connections (2,3)
+
+1   // this means that node 2 will have 1 connection (3)
+
+0   // this means that node 3 will have 0 connections 
+
+1   // first connection of node 0
+
+2   // second connesction of node 0
+
+2   // first connection of node 1
+
+3   // second connection of node 1
+
+3   // the only connection of node 2
+
+2   // the length of the path ( k )
+
+0   // start node             ( i )
+
+3   // finish node            ( j )
+```
+
+### Output:
+```
+2
+```
